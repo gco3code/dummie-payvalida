@@ -9,7 +9,7 @@ const pRemoto= new Pool({
   host: '10.66.166.30',
   user: 'postgres',
   password: '',
-  database: 'db_sac_prusso',
+  database: 'db_sac_pru',
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000
