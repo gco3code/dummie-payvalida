@@ -89,7 +89,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 .catch(err=>{
                   console.log("Error actualizando registro"+row.id);
                 })
-                console.log("ocurrio un error "+response.statusCode);
+                console.log("ocurrio un error "+error);
               }
             });
           })
