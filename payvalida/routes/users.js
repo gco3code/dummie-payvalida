@@ -216,7 +216,7 @@ var doInsert = function(rows){
 var constructPostDataConsulta = function(postData){
 
  var   options = {
-       uri: 'http://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
+       uri: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
        body: JSON.stringify(postData),
        method: 'POST',
@@ -233,7 +233,7 @@ var constructPostDataPago = function(postData){
 
  var   options = {
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
-       uri: 'http://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
+       uri: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
        body: JSON.stringify(postData),
        method: 'POST',
        headers: {
