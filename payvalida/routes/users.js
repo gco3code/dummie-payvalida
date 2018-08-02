@@ -8,7 +8,7 @@ var listo=148;
 const pRemoto= new Pool({
   host: '10.66.166.30',
   user: 'postgres',
-  password: 'postgres',
+  password: '',
   database: 'db_sac_prusso',
   max: 20,
   idleTimeoutMillis: 30000,
@@ -16,10 +16,10 @@ const pRemoto= new Pool({
 })
 
 const pLocal = new Pool({
-  host: 'localhost',
+  host: '10.66.166.30',
   user: 'postgres',
-  password: '123',
-  database: 'payvalida',
+  password: '',
+  database: 'payvalida_simulacion',
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000
@@ -216,7 +216,8 @@ var doInsert = function(rows){
 var constructPostDataConsulta = function(postData){
 
  var   options = {
-       uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
+       uri: 'http://serapilpru.gco.com.co:8086/sac-ext/rest/cuota/consulta',
+       //uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
        body: JSON.stringify(postData),
        method: 'POST',
        headers: {
@@ -231,7 +232,8 @@ var constructPostDataConsulta = function(postData){
 var constructPostDataPago = function(postData){
 
  var   options = {
-       uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
+       //uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
+       uri: 'http://seraplipru.gco.com.co:8086/sac-ext/rest/cuota/registrarPago',
        body: JSON.stringify(postData),
        method: 'POST',
        headers: {
