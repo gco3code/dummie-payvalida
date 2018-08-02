@@ -25,6 +25,10 @@ const pLocal = new Pool({
   connectionTimeoutMillis: 2000
 })
 
+var fs = require('fs');
+var path = require('path');
+var certFile = path.resolve(__dirname, 'certificados/intercredito_com_co.crt');
+var keyFile = path.resolve(__dirname, 'certificados/intercredito.key');
 
 router.get('/consultaBaloto', function(req, res, next) {
 
@@ -223,6 +227,14 @@ var constructPostDataConsulta = function(postData){
        headers: {
             'Content-Type': 'application/json',
             'gsec-user-token': '283D5E7EDR3547RL4A8FXJ8002ZY971E9C1FADF015CB1003F09'
+      },
+      agentOptions: {
+        cert: fs.readFileSync(certFile),
+        key: fs.readFileSync(keyFile),
+        // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
+        // pfx: fs.readFileSync(pfxFilePath),
+        passphrase: 'password',
+        securityOptions: 'SSL_OP_NO_SSLv3'
       }
     }
     return options;
