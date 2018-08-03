@@ -51,7 +51,7 @@ router.get('/consultaBaloto', function(req, res, next) {
             var request = https.request(postObject, (res)=>{
               res.on('data',(d)=>{
                 //otras constantes
-                console.log(d);
+                process.stdout.write(d);
                 console.log("se envio la consulta "+row.cedula);
 
                 if (!error && response.statusCode == 200) {
