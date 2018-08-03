@@ -4,7 +4,6 @@ var https = require('https');
 var pg = require('pg');
 const { Pool } = require('pg');
 var listo=148;
-const querystring = require('querystring');
 
 const pRemoto= new Pool({
   host: '10.66.166.30',
@@ -33,7 +32,7 @@ var keyFile = path.resolve(__dirname, 'certificados/intercredito.key');
 
 require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-const querystring = require('querystring'); 
+const querystring = require('querystring');
 
 router.get('/consultaBaloto', function(req, res, next) {
 
