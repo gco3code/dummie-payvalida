@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var request = require('https');
+var https = require('https');
 var pg = require('pg');
 const { Pool } = require('pg');
 var listo=148;
@@ -44,7 +44,7 @@ router.get('/consultaBaloto', function(req, res, next) {
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
-            request(postObject, function(error,response,body){
+            https.request(postObject, function(error,response,body){
               console.log("se envio la consulta "+row.cedula);
 
               if (!error && response.statusCode == 200) {
@@ -64,7 +64,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                         console.log("---------------------------------------------------------");
                         console.log(postObjectPago);
                         console.log("---------------------------------------------------------");
-                        request(postObjectPago, function(error,response,body){
+                        https.request(postObjectPago, function(error,response,body){
                           console.log("se envio el pago");
                           if (!error && response.statusCode == 200) {
 
