@@ -220,9 +220,12 @@ var doInsert = function(rows){
 var constructPostDataConsulta = function(postData){
 
  var   options = {
-       host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
+       host: 'jbosscapa.intercredito.com.co',
+       path: '/sac-ext/rest/cuota/consulta',
+       //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
        body: JSON.stringify(postData),
+
        method: 'POST',
        headers: {
             'Content-Type': 'application/json',
