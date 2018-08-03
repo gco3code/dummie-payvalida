@@ -225,6 +225,7 @@ var constructPostDataConsulta = function(postData){
        //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
        body: JSON.stringify(postData),
+       port: 8446
 
        method: 'POST',
        headers: {
