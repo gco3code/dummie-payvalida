@@ -244,7 +244,7 @@ var constructPostDataConsulta = function(postData){
        method: 'POST',
        headers: {
             'Content-Type': 'application/json',
-            'gsec-user-token': '283D5E7EDR3547RL4A8FXJ8002ZY971E9C1FADF015CB1003F09'
+            'gsec-user-token': '07E407C1PI0056MY4FC2TB89F6PE596DDF91F3F716501D53807'
       },
       //agentOptions: {
         cert: fs.readFileSync(certFile),
@@ -271,7 +271,7 @@ var constructPostDataPago = function(postData){
        method: 'POST',
        headers: {
             'Content-Type': 'application/json',
-            'gsec-user-token': '283D5E7EDR3547RL4A8FXJ8002ZY971E9C1FADF015CB1003F09'
+            'gsec-user-token': '07E407C1PI0056MY4FC2TB89F6PE596DDF91F3F716501D53807'
       },
       cert: fs.readFileSync(certFile),
       key: fs.readFileSync(keyFile),
