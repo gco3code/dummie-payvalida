@@ -4,6 +4,7 @@ var https = require('https');
 var pg = require('pg');
 const { Pool } = require('pg');
 var listo=148;
+const querystring = require('querystring');
 
 const pRemoto= new Pool({
   host: '10.66.166.30',
@@ -47,58 +48,67 @@ router.get('/consultaBaloto', function(req, res, next) {
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
-            https.request(postObject, function(error,response,body){
-              console.log("se envio la consulta "+row.cedula);
+            var request = https.request(postObject, (res)=>{
+              res.on('data',(d)=>{
+                //otras constantes
+                console.log("se envio la consulta "+row.cedula);
 
-              if (!error && response.statusCode == 200) {
-                var info = JSON.parse(body);                //{"status":"OK","mensajeError":null,"monto":6047.0,"cedula":"1098555777","descripcion":"ARTURO AMEREAGLETESORO 599-1","idTransaccion":1039,"email":"pagosbaloto@gmail.com"}
-                var montoMenos = Number(info.monto)-500;
-                var paramsUpdate = [info.idTransaccion,row.id,montoMenos];
-                var paramUpdateCuotaRemoto = [montoMenos,info.idTransaccion];
-                pRemoto.query(stringUpdateRemotoCuota,paramUpdateCuotaRemoto)
-                  .then((res)=>{
-                    pLocal.query(stringUpdate,paramsUpdate)
-                      .then((res)=>{
-                        console.log("Se actualizo el registro "+row.id);
-                        var dataPago = constructPostPago(info);
-                        var postObjectPago = constructPostDataPago(dataPago);
-                        console.log("---------------------------------------------------------");
-                        console.log(dataPago);
-                        console.log("---------------------------------------------------------");
-                        console.log(postObjectPago);
-                        console.log("---------------------------------------------------------");
-                        https.request(postObjectPago, function(error,response,body){
-                          console.log("se envio el pago");
-                          if (!error && response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
+                  var info = JSON.parse(body);                //{"status":"OK","mensajeError":null,"monto":6047.0,"cedula":"1098555777","descripcion":"ARTURO AMEREAGLETESORO 599-1","idTransaccion":1039,"email":"pagosbaloto@gmail.com"}
+                  var montoMenos = Number(info.monto)-500;
+                  var paramsUpdate = [info.idTransaccion,row.id,montoMenos];
+                  var paramUpdateCuotaRemoto = [montoMenos,info.idTransaccion];
+                  pRemoto.query(stringUpdateRemotoCuota,paramUpdateCuotaRemoto)
+                    .then((res)=>{
+                      pLocal.query(stringUpdate,paramsUpdate)
+                        .then((res)=>{
+                          console.log("Se actualizo el registro "+row.id);
+                          var dataPago = constructPostPago(info);
+                          var postObjectPago = constructPostDataPago(dataPago);
+                          console.log("---------------------------------------------------------");
+                          console.log(dataPago);
+                          console.log("---------------------------------------------------------");
+                          console.log(postObjectPago);
+                          console.log("---------------------------------------------------------");
+                          https.request(postObjectPago, function(error,response,body){
+                            console.log("se envio el pago");
+                            if (!error && response.statusCode == 200) {
 
 
-                          }else{
-                            console.log("error enviando el pago");
-                            console.log(error);
-                          }
+                            }else{
+                              console.log("error enviando el pago");
+                              console.log(error);
+                            }
+                          })
                         })
-                      })
-                      .catch((err)=>{
-                          console.log(err)
-                      })
-                  })
-                  .catch((err)=>{
-                    console.log("No pudo actualizar cuota remota");
-                  })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
+                    })
+                    .catch((err)=>{
+                      console.log("No pudo actualizar cuota remota");
+                    })
 
 
-              }else{
-                var paramsUpdate = ["-1",row.id];
-                pLocal.query(stringUpdate,paramsUpdate)
-                .then((res)=>{
-                  console.log("Se actualizo el registro "+row.id);
-                })
-                .catch(err=>{
-                  console.log("Error actualizando registro"+row.id);
-                })
-                console.log("ocurrio un error "+error);
-              }
+                }else{
+                  var paramsUpdate = ["-1",row.id];
+                  pLocal.query(stringUpdate,paramsUpdate)
+                  .then((res)=>{
+                    console.log("Se actualizo el registro "+row.id);
+                  })
+                  .catch(err=>{
+                    console.log("Error actualizando registro"+row.id);
+                  })
+                  console.log("ocurrio un error "+error);
+                }
+                //otras constantes
+              })
             });
+
+            request.write(postData);
+            request.end();
+
+
           })
       })
       .catch(err => console.error('Error executing query', err.stack))
