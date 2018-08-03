@@ -33,6 +33,7 @@ var keyFile = path.resolve(__dirname, 'certificados/intercredito.key');
 
 require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+const querystring = require('querystring'); 
 
 router.get('/consultaBaloto', function(req, res, next) {
 
@@ -44,7 +45,7 @@ router.get('/consultaBaloto', function(req, res, next) {
       .then((res) => {
           res.rows.forEach(function(row){
             //console.log(row.cedula);
-            var postData = {"cedula":row.cedula};
+            var postData = querystring.stringify({"cedula":row.cedula});
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
