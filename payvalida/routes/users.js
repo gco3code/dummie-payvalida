@@ -44,7 +44,7 @@ router.get('/consultaBaloto', function(req, res, next) {
       .then((res) => {
           res.rows.forEach(function(row){
             //console.log(row.cedula);
-            var postData = querystring.stringify({cedula:row.cedula});
+            var postData = querystring.stringify(row.cedula);
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
