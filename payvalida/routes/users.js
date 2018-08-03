@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
+var request = require('https');
 var pg = require('pg');
 const { Pool } = require('pg');
 var listo=148;
@@ -228,14 +228,14 @@ var constructPostDataConsulta = function(postData){
             'Content-Type': 'application/json',
             'gsec-user-token': '283D5E7EDR3547RL4A8FXJ8002ZY971E9C1FADF015CB1003F09'
       },
-      agentOptions: {
+      //agentOptions: {
         cert: fs.readFileSync(certFile),
         key: fs.readFileSync(keyFile),
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
         // pfx: fs.readFileSync(pfxFilePath),
         //passphrase: 'password',
         //securityOptions: 'SSL_OP_NO_SSLv3'
-      }
+      //}
     }
     return options;
 
