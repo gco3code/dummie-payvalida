@@ -29,7 +29,9 @@ var fs = require('fs');
 var path = require('path');
 var certFile = path.resolve(__dirname, 'certificados/intercredito_com_co.crt');
 var keyFile = path.resolve(__dirname, 'certificados/intercredito.key');
+
 require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 router.get('/consultaBaloto', function(req, res, next) {
 
