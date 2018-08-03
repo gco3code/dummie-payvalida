@@ -249,13 +249,18 @@ var constructPostDataPago = function(postData){
 
  var   options = {
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
-       host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
+       host: 'jbosscapa.intercredito.com.co',
+       path: '/sac-ext/rest/cuota/registrarPago',
+       //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
        body: JSON.stringify(postData),
+       port: 8446,
        method: 'POST',
        headers: {
             'Content-Type': 'application/json',
             'gsec-user-token': '283D5E7EDR3547RL4A8FXJ8002ZY971E9C1FADF015CB1003F09'
-      }
+      },
+      cert: fs.readFileSync(certFile),
+      key: fs.readFileSync(keyFile),
     }
     return options;
 
