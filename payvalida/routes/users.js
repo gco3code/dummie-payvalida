@@ -36,6 +36,7 @@ const querystring = require('querystring');
 
 router.get('/consultaBaloto', function(req, res, next) {
 
+  res.setEncoding('utf8');
   var stringQuery = "select id,cedula,enviar from pagos where enviar=1 and idtransaccion is null limit 5";
   var stringUpdate = "update pagos set listo="+listo+",enviar=0,idTransaccion=$1,monto=$3 where id=$2 ";
   var stringUpdateRemotoCuota = "update sac_log_baloto_consulta_response set res_monto=$1 where bal_id=$2";
@@ -44,7 +45,7 @@ router.get('/consultaBaloto', function(req, res, next) {
       .then((res) => {
           res.rows.forEach(function(row){
             //console.log(row.cedula);
-            var postData = querystring.stringify({"cedula":87069371});
+            var postData = querystring.stringify({"cedula":"87069371"});
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
@@ -105,7 +106,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 //otras constantes
               })
             });
-
+            request.setEncoding('utf8');
             request.write(postData);
             request.end();
 
@@ -264,7 +265,7 @@ var constructPostDataPago = function(postData){
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
        host: 'jbosscapa.intercredito.com.co',
        path: '/sac-ext/rest/cuota/registrarPago',
-       //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',       
+       //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
        port: 8446,
        method: 'POST',
        headers: {
