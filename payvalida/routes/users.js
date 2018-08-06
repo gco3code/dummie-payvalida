@@ -164,7 +164,7 @@ router.get('/consultaUsuariosConCuotas',function(req,res,next){
 
 router.get('/connectToPayValidaEmulator',function(req,res,next){
   var pagos=[];
-  var stringQuery = ["select id,cedula,monto,descripcion,idtransaccion,email,enviar,listo from pagos where listo=",listo].join(' ');
+  var stringQuery = ["select id,cedula,monto,descripcion,idtransaccion,email,enviar,listo from pagos where idtransaccion is not null and listo=",listo].join(' ');
   pLocal.query(stringQuery)
     .then(function(respuesta){
       respuesta.rows.forEach(function(ele){
