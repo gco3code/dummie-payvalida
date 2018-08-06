@@ -238,7 +238,6 @@ var constructPostDataConsulta = function(postData){
        path: '/sac-ext/rest/cuota/consulta',
        //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
-       body: JSON.stringify(postData),
        port: 8446,
 
        method: 'POST',
@@ -265,8 +264,7 @@ var constructPostDataPago = function(postData){
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
        host: 'jbosscapa.intercredito.com.co',
        path: '/sac-ext/rest/cuota/registrarPago',
-       //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
-       body: JSON.stringify(postData),
+       //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',       
        port: 8446,
        method: 'POST',
        headers: {
