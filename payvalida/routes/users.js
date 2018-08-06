@@ -85,7 +85,7 @@ router.get('/consultaBaloto', function(req, res, next) {
 
                           })
 
-                          requestPago.write();
+                          requestPago.write(dataPago);
                           requestPago.end();
                         })
                         .catch((err)=>{
