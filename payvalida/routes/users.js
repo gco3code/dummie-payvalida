@@ -68,11 +68,11 @@ router.get('/consultaBaloto', function(req, res, next) {
                           console.log("Se actualizo el registro "+row.id);
                           var dataPago = constructPostPago(info);
                           var postObjectPago = constructPostDataPago(dataPago);
-                          console.log("---------------------------------------------------------");
+                          console.log("---------------------DATAPAGO-------------------------------");
                           console.log(dataPago);
-                          console.log("---------------------------------------------------------");
+                          console.log("---------------------POSTOBJECTPAGO-------------------------");
                           console.log(postObjectPago);
-                          console.log("---------------------------------------------------------");
+                          console.log("------------------------------------------------------------");
                           var requestPago = https.request(postObjectPago, (res)=>{
 
                             res.on('data',(d)=>{
