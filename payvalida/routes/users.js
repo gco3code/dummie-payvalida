@@ -45,7 +45,7 @@ router.get('/consultaBaloto', function(req, res, next) {
       .then((res) => {
           res.rows.forEach(function(row){
             //console.log(row.cedula);
-            var postData = querystring.stringify({"cedula":"87069371"});
+            var postData = JSON.stringify({"cedula":"87069371"});
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
@@ -106,7 +106,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 //otras constantes
               })
             });
-            
+
             request.write(postData);
             request.end();
 
