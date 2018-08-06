@@ -56,7 +56,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 console.log("se envio la consulta "+row.cedula);
 
                 //if (response.statusCode == 200) {
-                  var info = JSON.parse(body);                //{"status":"OK","mensajeError":null,"monto":6047.0,"cedula":"1098555777","descripcion":"ARTURO AMEREAGLETESORO 599-1","idTransaccion":1039,"email":"pagosbaloto@gmail.com"}
+                  var info = JSON.parse(d);                //{"status":"OK","mensajeError":null,"monto":6047.0,"cedula":"1098555777","descripcion":"ARTURO AMEREAGLETESORO 599-1","idTransaccion":1039,"email":"pagosbaloto@gmail.com"}
                   var montoMenos = Number(info.monto)-500;
                   var paramsUpdate = [info.idTransaccion,row.id,montoMenos];
                   var paramUpdateCuotaRemoto = [montoMenos,info.idTransaccion];
