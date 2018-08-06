@@ -36,7 +36,7 @@ const querystring = require('querystring');
 
 router.get('/consultaBaloto', function(req, res, next) {
 
-  res.setEncoding('utf8');
+
   var stringQuery = "select id,cedula,enviar from pagos where enviar=1 and idtransaccion is null limit 5";
   var stringUpdate = "update pagos set listo="+listo+",enviar=0,idTransaccion=$1,monto=$3 where id=$2 ";
   var stringUpdateRemotoCuota = "update sac_log_baloto_consulta_response set res_monto=$1 where bal_id=$2";
