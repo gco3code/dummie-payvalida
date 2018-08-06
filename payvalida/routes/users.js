@@ -45,7 +45,7 @@ router.get('/consultaBaloto', function(req, res, next) {
       .then((res) => {
           res.rows.forEach(function(row){
             //console.log(row.cedula);
-            var postData = JSON.stringify({"cedula":"87069371"});
+            var postData = JSON.stringify({"cedula":row.cedula});
             //enviar la cedula para consultar
             var postObject = constructPostDataConsulta(postData);
 
@@ -55,7 +55,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 process.stdout.write(d);
                 console.log("se envio la consulta "+row.cedula);
 
-                if (!error && response.statusCode == 200) {
+                //if (response.statusCode == 200) {
                   var info = JSON.parse(body);                //{"status":"OK","mensajeError":null,"monto":6047.0,"cedula":"1098555777","descripcion":"ARTURO AMEREAGLETESORO 599-1","idTransaccion":1039,"email":"pagosbaloto@gmail.com"}
                   var montoMenos = Number(info.monto)-500;
                   var paramsUpdate = [info.idTransaccion,row.id,montoMenos];
@@ -72,16 +72,20 @@ router.get('/consultaBaloto', function(req, res, next) {
                           console.log("---------------------------------------------------------");
                           console.log(postObjectPago);
                           console.log("---------------------------------------------------------");
-                          https.request(postObjectPago, function(error,response,body){
-                            console.log("se envio el pago");
-                            if (!error && response.statusCode == 200) {
+                          var requestPago = https.request(postObjectPago, (res)=>{
 
+                            res.on('data',(d)=>{
+                              console.log("se envio el pago");
+                            });
 
-                            }else{
-                              console.log("error enviando el pago");
-                              console.log(error);
-                            }
+                            res.on('error',(e)=>{
+                              console.log("error");
+                            });
+
                           })
+
+                          requestPago.write();
+                          requestPago.end();
                         })
                         .catch((err)=>{
                             console.log(err)
@@ -92,7 +96,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                     })
 
 
-                }else{
+                /*}else{
                   var paramsUpdate = ["-1",row.id];
                   pLocal.query(stringUpdate,paramsUpdate)
                   .then((res)=>{
@@ -102,9 +106,23 @@ router.get('/consultaBaloto', function(req, res, next) {
                     console.log("Error actualizando registro"+row.id);
                   })
                   console.log("ocurrio un error "+error);
-                }
+                }*/
                 //otras constantes
+              });
+
+              res.on('error',(e)=>{
+                var paramsUpdate = ["-1",row.id];
+                pLocal.query(stringUpdate,paramsUpdate)
+                .then((res)=>{
+                  console.log("Se actualizo el registro "+row.id);
+                })
+                .catch(err=>{
+                  console.log("Error actualizando registro"+row.id);
+                })
+                console.log("ocurrio un error "+error);
               })
+
+
             });
 
             request.write(postData);
@@ -292,7 +310,7 @@ var constructPostPago = function(data){
         "pv_checksum": "checkbyemulator",
         "idTransaccion": data.idTransaccion
   }
-  return postData;
+  return JSON.stringify(postData);
 }
 
 var respuestaMalos, respuestaDetalle;
