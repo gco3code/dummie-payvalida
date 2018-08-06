@@ -106,7 +106,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 //otras constantes
               })
             });
-            request.setEncoding('utf8');
+            
             request.write(postData);
             request.end();
 
