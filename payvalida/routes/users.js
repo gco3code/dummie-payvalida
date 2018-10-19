@@ -254,7 +254,7 @@ var doInsert = function(rows){
 var constructPostDataConsulta = function(postData){
 
  var   options = {
-       host: 'https://sacwebpruebas.intercredito.com.co',
+       host: 'sacwebpruebas.intercredito.com.co',
        path: '/sac-ext/rest/cuota/consulta',
        //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/consulta',
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/consulta',
@@ -282,7 +282,7 @@ var constructPostDataPago = function(postData){
 
  var   options = {
        //uri: 'http://localhost:8080/sac-ext/rest/cuota/registrarPago',
-       host: 'https://sacwebpruebas.intercredito.com.co',
+       host: 'sacwebpruebas.intercredito.com.co',
        path: '/sac-ext/rest/cuota/registrarPago',
        //host: 'https://jbosscapa.intercredito.com.co:8446/sac-ext/rest/cuota/registrarPago',
        port: 443,
