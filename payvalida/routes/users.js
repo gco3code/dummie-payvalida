@@ -58,7 +58,7 @@ router.get('/consultaBaloto', function(req, res, next) {
                 //if (response.statusCode == 200) {
                   var info = JSON.parse(d);
                   console.log(info);
-                  var montoMenos = Number(info.monto)-500;
+                  var montoMenos = Number(info.monto)-0;
                   var paramsUpdate = [info.idTransaccion,row.id,montoMenos];
                   var paramUpdateCuotaRemoto = [montoMenos,info.idTransaccion];
                   pRemoto.query(stringUpdateRemotoCuota,paramUpdateCuotaRemoto)
@@ -168,7 +168,7 @@ router.get('/connectToPayValidaEmulator',function(req,res,next){
   pLocal.query(stringQuery)
     .then(function(respuesta){
       respuesta.rows.forEach(function(ele){
-        var montoMenos = Number(ele.monto)-500;
+        var montoMenos = Number(ele.monto)-0;
         var pago = {
               "idTransaccion": ele.idtransaccion,
               "amount": montoMenos,
@@ -299,7 +299,7 @@ var constructPostDataPago = function(postData){
 }
 
 var constructPostPago = function(data){
-  var montoMenos = Number(data.monto)-500;
+  var montoMenos = Number(data.monto)-0;
   var postData = {
         "pv_po_id": 1152695344,
         "po_id": data.idTransaccion,
